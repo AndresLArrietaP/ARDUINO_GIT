@@ -1,21 +1,17 @@
-int LED = 9;
-int RESISTENCIA = A0;
-int entrada = 0;
+int pled = 9;
+int pres = A0;
+int ent = 0;
 
 void setup(){
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, LOW);
+  pinMode(pled, OUTPUT);
+  digitalWrite(pled, LOW);
   Serial.begin(9600);
 }
 
 void loop(){
-  entrada = analogRead(RESISTENCIA); //0 - 1023
-  Serial.println(entrada);
-
-  entrada = (entrada * 255) / 1023;
-
-  analogWrite(LED, entrada);
-
+  ent= analogRead(pres);
+  Serial.println(ent);
+  ent = (ent * 255) / 1023;
+  analogWrite(pled, ent);
   delay(500);
-  
 }

@@ -1,32 +1,40 @@
+#include <LiquidCrystal.h>
 
+int prs = 12;
+int pe = 11;
+int pd4 = 5;
+int pd5 = 4;
+int pd6 = 3;
+int pd7 = 2;
+
+LiquidCrystal lcd(prs,pe, pd4, pd5, pd6, pd7);
 
 void setup() {
-  Serial.begin(9600);
 
 }
 
 void loop(){
-  int lectura = analogRead(A1);
+  int hum = analogRead(A1);
+  int hump = map(hum,1023,0,0,100); //A PORCENTAJE
 
-  Serial.print("La lectura es: ");
-  Serial.println(lectura);
 
-  // lecturas entre 1000 - 1023
-if (lectura >= 1000) {
-  Serial.println ("›> EL SENSOR ESTA DESCONECTADO O FUERA DEL SUELO <<");
-}else if (lectura <1000 && lectura >= 600) {
-  Serial.println (">> EL SUELO ESTA SECO <<");
-}else if (lectura < 600 && lectura >= 370) {
-  Serial.println ("›> EL SUELO ESTA HUMEDO<<");
-}else if (lectura < 370) {
-  Serial.println ("›> EL SENSOR ESTA EN AGUA<<");
-}
-delay(1000);
-
-//porcentaje
-int lectporcent = map(lectura,1023,0,0,100);
-Serial.print ("La humedad es del: ");
-Serial.print (lectporcent);
-Serial.println ("%");
+  lcd.setCursor(0, 0);
+  lcd.print("Humedad: ");
+  lcd.setCursor(10, 0);
+  lcd.print(hump);
+  lcd.print(" %");
+  lcd.setCursor(0, 1);
+    // lecturas entre 1000 - 1023
+  if (hum >= 1000) {
+    lcd.print("SIN HUMEDAD");
+  }else if (hum <1000 && hum >= 600) {
+    lcd.print("SUELO SECO");
+  }else if (hum < 600 && hum >= 370) {
+    lcd.print("SUELO HUMEDO");
+  }else if (hum < 370) {
+    lcd.print("EN AGUA");
+  }
+  delay(1000);
+  lcd.clear();
 
 }

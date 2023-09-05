@@ -1,22 +1,23 @@
-int gas = 13;
-int led = 7;
-int buzzer = 1;
-bool estado = 0;
+int pgas = 13;
+int pled = 7;
+int pbuzzer = 1;
+bool est = 0;
+
 void setup() {
-pinMode(gas,INPUT);
-pinMode(led,OUTPUT);
-pinMode(buzzer,OUTPUT);
+  pinMode(pgas, INPUT);
+  pinMode(pled, OUTPUT);
+  pinMode(pbuzzer, OUTPUT);
 }
 
 void loop() {
-estado = digitalRead(gas);
-if(estado == HIGH){
-  digitalWrite(led,LOW);
-  }else{
-  digitalWrite(led,HIGH);
-  digitalWrite(buzzer,HIGH);
-  delay(500);
-  digitalWrite(buzzer,LOW);
-  delay(500);
-    }
+  est = digitalRead(pgas);
+  if (est == HIGH) {
+    digitalWrite(pled, LOW);
+  } else {
+    digitalWrite(pled, HIGH);
+    digitalWrite(pbuzzer, HIGH);
+    delay(500);
+    digitalWrite(pbuzzer, LOW);
+    delay(500);
+  }
 }
