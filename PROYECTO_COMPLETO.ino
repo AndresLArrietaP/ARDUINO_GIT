@@ -1,5 +1,4 @@
 #include <DHT.h>  // Agrega la librería para el sensor DHT11
-//#include <LiquidCrystal.h>
 
 #define DHTPIN 10  // Define el pin al que está conectado el sensor DHT11
 #define DHTTYPE DHT11  // Especifica el tipo de sensor (DHT11 en este caso)
@@ -41,23 +40,19 @@ void loop() {
   // Leemos la temperatura y la humedad del sensor DHT11
   float temperatura = dht.readTemperature();
   float humedadDHT = dht.readHumidity();
-
   // Leemos la lectura del sensor de humedad de suelo
   int lectura = analogRead(sensorPin);
-
   // Leemos la lectura del sensor de luz ambiental
   int LDRestado = analogRead(ldrPin);
-
   // Mostramos los valores en el Monitor Serie
   Serial.print("Temperatura: ");
   Serial.print(temperatura, 1); // Mostramos la temperatura con un decimal
   Serial.println(" C");
-
   Serial.print("Humedad: ");
   Serial.print(humedadDHT, 1); // Mostramos la humedad con un decimal
   Serial.println(" %");
-
   // Mostramos el resultado de las condiciones en el Monitor Serie
+  
   if (lectura >= 1000) {
     Serial.println("FUERA DEL SUELO");
   } else if (lectura < 1000 && lectura >= 600) {
@@ -72,7 +67,8 @@ void loop() {
   Serial.print("Humedad del suelo: ");
   Serial.println(lectura);
 
-  // Enviamos la lectura del sensor de luz ambiental al Monitor Serie
+  // Enviamos la lectura del sensor 
+  //de luz ambiental al Monitor Serie
   Serial.print("Luz ambiental: ");
   Serial.println(LDRestado);
 
@@ -87,7 +83,6 @@ void loop() {
   int sensorValue = analogRead(mq2Pin);
   Serial.print("Valor del sensor de gas: ");
   Serial.println(sensorValue);
-
   // Comprueba si el valor del sensor MQ-2 supera el umbral para la detección de gas
   if (sensorValue > umbralGas) {
     flameDetected = 1;  // Se detecta el gas
@@ -99,9 +94,8 @@ void loop() {
     digitalWrite(buzzerPinGas, LOW);
   }
 
-  // Leemos la humedad del suelo
+  // Leemos la humedad del suelo 
   humedad = analogRead(A1);
-
   // Comprueba si la humedad del suelo está dentro del rango deseado para activar la bomba
   if (humedad >= 721 && humedad <= 1024) {
     digitalWrite(bomba, LOW); // Apagar la bomba
